@@ -1,1 +1,0 @@
-tect file to try the mini rag project request through postman 
