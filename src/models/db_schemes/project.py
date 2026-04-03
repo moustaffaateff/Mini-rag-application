@@ -17,5 +17,17 @@ class Project ( BaseModel ) :
         arbitrary_types_allowed = True   # To make pydantic ignore the (objectid) data type created by mongo for every document in the collection 
 
         # allow using 'id' to fill '_id' and vice versa
-        allow_population_by_field_name = True      
-            
+        allow_population_by_field_name = True     
+         
+    @classmethod
+    def get_indexes(cls):
+
+        return [
+            {
+                "key": [
+                    ("project_id", 1)
+                ],
+                "name": "project_id_index_1",
+                "unique": True
+            }
+        ]
