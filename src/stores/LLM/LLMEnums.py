@@ -14,8 +14,10 @@ class CoHereEnums(Enum):
     USER = "USER"
     ASSISTANT = "CHATBOT"
 
-    DOCUMENT = "search_document"
-    QUERY = "search_query"
+
+    # its is different if the embeded part is a chunk of data or user input 
+    DOCUMENT = "search_document"  #Datachunk
+    QUERY = "search_query"        #User prompt
 
 
 class DocumentTypeEnum(Enum):
