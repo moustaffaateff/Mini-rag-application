@@ -21,8 +21,8 @@ class CohereProvider(LLMInterface):
         self.embedding_size = None
 
 
-        self.client = cohere(api_key = self.api_key)
-
+        self.client = cohere.Client(api_key=self.api_key) 
+        self.enums = CoHereEnums
         self.logger = logging.getLogger(__name__)
 
 
@@ -67,8 +67,8 @@ class CohereProvider(LLMInterface):
         if not self.client :
             self.logger.error("Cohere client was not set.")
             return None 
-        if not self.embedding_model_id or self.embedding_size :
-            self.logger.error("Generation model id for Cohere was not set.")
+        if not self.embedding_model_id or not self.embedding_size :
+            self.logger.error("embedding model id for Cohere was not set.")
             return None
 
         input_type = CoHereEnums.DOCUMENT 
@@ -76,15 +76,15 @@ class CohereProvider(LLMInterface):
             input_type = CoHereEnums.QUERY
 
         response = self.client.embed(model = self.embedding_model_id,
-                          text = [self.process_text(text)],
+                          texts = [self.process_text(text)],
                           input_type = input_type,
                           embedding_types= ["float"]
                           )
         
-        if not response or not response.embeddings or not response.embeddingd.float[0]:
+        if not response or not response.embeddings or not response.embeddings.float[0]:
             self.logger.error("Error while embedding text with Cohere")
             return None
-        return response.embeddingd.float[0] 
+        return response.embeddings.float[0] 
         
     def construct_prompt(self, prompt: str, role: str):
         return {"role" : role ,

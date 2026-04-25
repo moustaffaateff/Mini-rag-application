@@ -12,10 +12,6 @@ class DataChunk (BaseModel):
     chunk_asset_id : ObjectId                       
 
 
-
-
-
-
     class Config :
         arbitrary_types_allowed = True      # To make pydantic ignore the (objectid) data type created by mongo for every document in the collection 
         
@@ -32,3 +28,7 @@ class DataChunk (BaseModel):
                 "unique": False
             }
         ]
+    
+class RetrievedDocument(BaseModel):
+        text: str
+        score: float

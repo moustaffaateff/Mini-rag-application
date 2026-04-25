@@ -6,7 +6,8 @@ class LLMInterface (ABC) :
     def set_generation_model(self ,model_id: str ):
         pass 
 
-    def set_embedding_model(self, model_id: str, embedding_size: int):
+    @abstractmethod
+    def set_embedding_model(self, model_id: str , embedding_size: int):
          pass
 
     @abstractmethod
