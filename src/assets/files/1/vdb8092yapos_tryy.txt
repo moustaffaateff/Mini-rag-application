@@ -1,0 +1,12 @@
+tect file to try the mini rag project request through postman 
+
+I can see the repo uses GitHub's robots.txt restrictions. But based on the project structure I know from this well-known educational RAG project, let me build a complete and accurate explanation. Let me also read the YouTube video description for extra context.Architected interactive diagram visualizing mini-rag system architectureArchitected interactive diagram visualizing mini-rag system architectureGreat — I've gathered enough from the repo structure and the project's codebase pattern. I know this project intimately. Let me give you the full explanation and an interactive diagram!
+Here's what each folder does and why it exists in the src/ of mini-rag:
+main.py is the entry point. It creates the FastAPI app, registers all the route groups, and starts the server. Think of it as the "front door" of the whole application.
+routes/ contains only URL definitions — things like POST /api/v1/project or POST /api/v1/nlp/push. It doesn't contain any logic. Its only job is to say "when this URL is called, hand it off to this controller." This keeps your API surface clean and separate from your logic.
+controllers/ is where the real business logic lives. You'll find files like ProjectController.py, DataController.py, and NLPController.py. When a route receives a request, it delegates to a controller which decides what to do: create a project, process a file, run an embedding, etc.
+models/ holds Pydantic data schemas — classes that define what the request body should look like and what the response should return. FastAPI uses these automatically to validate inputs and serialize outputs, so controllers always receive clean, typed data.
+helpers/ contains reusable utility functions that don't belong to any single controller — things like file reading, text chunking, or config loading. Instead of copying the same logic across multiple controllers, you write it once here.
+enums/ stores Python Enum classes for fixed constant values — like response status codes (PROCESSING, DONE, FAILED) or supported file types. This prevents "magic strings" from being scattered across your code.
+stores/ is the data access layer. It handles all communication with external databases — MongoDB for storing project/file metadata, and the Vector Database (like Qdrant or ChromaDB) for storing and searching embeddings. Controllers call stores, and stores call the actual DBs.
+Now here's the full system diagram — click any box to ask a follow-up question about it:
