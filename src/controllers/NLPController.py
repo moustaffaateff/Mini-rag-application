@@ -106,6 +106,7 @@ class NLPController(BaseController):
                                                          limit = limit 
                                                          )
         if not retrieved_documents or len(retrieved_documents) == 0 : 
+            print("no retrived documents")
             return None 
         
         # System prompt

@@ -57,16 +57,19 @@ class OpenAIProvider(LLMInterface):
             self.construct_prompt(prompt=prompt, role=OpenAIEnums.USER.value)
         )
 
-        # Inside OpenAIProvider.py
+        
         try:
             response = self.client.chat.completions.create(
-                model=self.generation_model_id,
-                messages=prompt, # Ensure 'prompt' is formatted as a list of dicts
-                temperature=temperature
+            model = self.generation_model_id,
+            messages = chat_history,
+            max_tokens = max_output_tokens,
+            temperature = temperature
             )
         except Exception as e:
             print(f"OPENAI ERROR: {e}")
             raise e
+        
+
         if not response or not response.choices or len(response.choices) == 0 or not response.choices[0].message:
             self.logger.error("Error while generating text with OpenAI")
             return None

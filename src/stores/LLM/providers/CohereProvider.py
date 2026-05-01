@@ -21,7 +21,7 @@ class CohereProvider(LLMInterface):
         self.embedding_size = None
 
 
-        self.client = cohere.Client(api_key=self.api_key) 
+        self.client = cohere.ClientV2(api_key=self.api_key) 
         self.enums = CoHereEnums
         self.logger = logging.getLogger(__name__)
 
@@ -53,8 +53,8 @@ class CohereProvider(LLMInterface):
 
         response = self.client.chat(
             model = self.generation_model_id,
-            chat_history = chat_history,
-            message = self.process_text(prompt),
+            #chat_history = chat_history,
+            messages = self.process_text(prompt),
             temperature = temperature,
             max_tokens = max_output_tokens 
         )
